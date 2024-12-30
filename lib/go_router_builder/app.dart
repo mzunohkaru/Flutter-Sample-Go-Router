@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,10 +19,10 @@ class MainApp extends ConsumerWidget {
     return MaterialApp.router(
       title: 'Go Router Builder Sample',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.blueM3,
         useMaterial3: true,
-        primarySwatch: Colors.lightBlue,
-        scaffoldBackgroundColor: Colors.lightBlue.shade50,
+        primary: Colors.green,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android: _defaultPageTransition,
@@ -33,6 +34,23 @@ class MainApp extends ConsumerWidget {
           },
         ),
       ),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueM3),
+      themeMode: ThemeMode.system,
+      // theme: ThemeData(
+      //   useMaterial3: true,
+      //   primarySwatch: Colors.lightBlue,
+      //   scaffoldBackgroundColor: Colors.lightBlue.shade50,
+      //   pageTransitionsTheme: const PageTransitionsTheme(
+      //     builders: {
+      //       TargetPlatform.android: _defaultPageTransition,
+      //       TargetPlatform.fuchsia: _defaultPageTransition,
+      //       TargetPlatform.iOS: _defaultPageTransition,
+      //       TargetPlatform.macOS: _defaultPageTransition,
+      //       TargetPlatform.linux: _defaultPageTransition,
+      //       TargetPlatform.windows: _defaultPageTransition,
+      //     },
+      //   ),
+      // ),
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
