@@ -1,9 +1,9 @@
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/view/home/about_screen.dart';
-import 'package:go_router_sample/view/home/detail_screen.dart';
-import 'package:go_router_sample/view/home/home_screen.dart';
-import 'package:go_router_sample/view/home/test_screen.dart';
-import 'package:go_router_sample/view/settings_screen.dart';
+import 'package:go_router_sample/basic/view/home/about_screen.dart';
+import 'package:go_router_sample/basic/view/home/detail_screen.dart';
+import 'package:go_router_sample/basic/view/home/home_screen.dart';
+import 'package:go_router_sample/basic/view/home/test_screen.dart';
+import 'package:go_router_sample/basic/view/settings_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/',

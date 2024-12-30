@@ -1,6 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router_sample/router.dart';
+import 'package:go_router_sample/basic/router.dart';
 
 void main() {
   runApp(const MyApp());
