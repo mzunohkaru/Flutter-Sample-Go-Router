@@ -1,28 +1,83 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
-
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
+  # rules については不要なものを列挙していく
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # 好みの問題だが、"if (bool) return;" の方が読みやすいと感じる
+    always_put_control_body_on_new_line: false
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+    # `prefer_relative_imports`と競合する
+    always_use_package_imports: false
+
+    # `omit_local_variable_types` などと競合する。
+    # Dartのガイドラインに従い、不必要な型を避けてコードを読みやすくする。
+    always_specify_types: false
+
+    # `type_annotate_public_apis`と競合する
+    avoid_annotating_with_dynamic: false
+
+    # カスタムのenumライクなクラス（Flutterの"Colors"など）での誤検出
+    # 運用した結果、そこまで有益とは思えなかった(dartにnamespaceとしての代替案が乏しい)
+    avoid_classes_with_only_static_members: false
+
+    # 好みの問題だが、cascade記法はそんなに一般的にではない
+    cascade_invocations: false
+
+    # debugメソッドは使っていない。
+    diagnostic_describe_all_properties: false
+
+    # 関数によってFutureが返される場合の誤検出
+    discarded_futures: false
+
+    # このプロジェクトはFlutterスタイルのtodosを使用していない
+    flutter_style_todos: false
+
+    # 意図を持ってアンダースコアをつける場合にそれを妨げる必要はない
+    no_leading_underscores_for_local_identifiers: false
+
+    # 現代的な IDE なら 80 文字制限は不要
+    lines_longer_than_80_chars: false
+
+    # `prefer_single_quotes`と競合する
+    # シングルクォートは入力が簡単で、可読性に影響しない。
+    prefer_double_quotes: false
+
+    # 特に Widget の定義で `build`メソッドが単一のreturnを持つ場合、
+    # 逆に読みづらくなる。
+    prefer_expression_function_bodies: false
+
+    # 記述が冗長になり、可読性が低下する。
+    prefer_final_parameters: false
+
+    # `prefer_final_locals`と競合する
+    unnecessary_final: false
+
+    # アプリケーションでは過剰
+    public_member_api_docs: false
+
+    # 偽陽性が多い
+    # https://github.com/dart-lang/linter/issues/4346
+    unnecessary_parenthesis: false
+
+    # 日本語はwhitespaceをそんなに使わないので相性が悪い
+    missing_whitespace_between_adjacent_strings: false
+
+    # 例えばColumn内部の配列等について、3項演算子の方が見やすい可能性がある。
+    # 各実装者に任せる
+    prefer_if_elements_to_conditional_expressions: false
+
+    # 明記した方が読みやすい場合があるので要議論
+    # Provider とは相性がかなり悪い(なくなる予定ではあるが)
+    # https://twitter.com/_mono/status/1220483766163951616
+    avoid_types_on_closure_parameters: false
+
+    # Flutter のスタイルガイドを違反する
+    # https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo#use-double-literals-for-double-constants
+    #
+    # また、原因を深く追求していないが、 double を使うべきところで int を使ってしまうと、型変換でエラーが発生してしまうので、auto-fix も危険。
+    # おそらく、 Tween 等 int と double で違う型に推論されるので良くない。
+    # https://linear.app/xxxxxxxxx
+    prefer_int_literals: false
+
+    # borderが設定されている場合、ContainerとDecoratedBoxは挙動が異なる
+    # 詳細は、https://github.com/flutter/flutter/issues/118777 や https://zenn.dev/aomi/articles/73475e127a4e3b を参照。
+    use_decorated_box: false
