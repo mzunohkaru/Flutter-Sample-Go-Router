@@ -36,21 +36,6 @@ class MainApp extends ConsumerWidget {
       ),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.blueM3),
       themeMode: ThemeMode.system,
-      // theme: ThemeData(
-      //   useMaterial3: true,
-      //   primarySwatch: Colors.lightBlue,
-      //   scaffoldBackgroundColor: Colors.lightBlue.shade50,
-      //   pageTransitionsTheme: const PageTransitionsTheme(
-      //     builders: {
-      //       TargetPlatform.android: _defaultPageTransition,
-      //       TargetPlatform.fuchsia: _defaultPageTransition,
-      //       TargetPlatform.iOS: _defaultPageTransition,
-      //       TargetPlatform.macOS: _defaultPageTransition,
-      //       TargetPlatform.linux: _defaultPageTransition,
-      //       TargetPlatform.windows: _defaultPageTransition,
-      //     },
-      //   ),
-      // ),
       routeInformationProvider: router.routeInformationProvider,
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,

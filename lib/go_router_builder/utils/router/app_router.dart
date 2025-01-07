@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../models/product.dart';
+import '../../provider/login_provider.dart';
 import '../../ui/auth/sign_in_screen.dart';
 import '../../ui/auth/sign_up_screen.dart';
 import '../../ui/components/app_navigation_bar.dart';
@@ -23,15 +24,23 @@ final routerProvider = Provider(
     navigatorKey: rootNavigatorKey,
     initialLocation: Routes.top,
     routes: $appRoutes,
+    // リダイレクトロジックを追加
+    redirect: (context, state) {
+      final isLoggedIn = logIn;
+      final isTopPage = state.matchedLocation == Routes.top;
+
+      // トップページにいて、ログイン済みの場合はホームにリダイレクト
+      if (isTopPage && isLoggedIn) {
+        return Routes.home;
+      }
+      return null;
+    },
     errorPageBuilder: (context, state) => MaterialPage(
       key: state.pageKey,
       child: ErrorScreen(
         message: state.error!.message,
       ),
     ),
-    redirect: (context, state) {
-      return null;
-    },
   ),
 );
 
@@ -56,7 +65,6 @@ final appRoutes = [
               GoRoute(
                 name: 'detail',
                 path: 'detail/:id',
-                parentNavigatorKey: rootNavigatorKey,
                 pageBuilder: (context, state) {
                   final id = state.pathParameters['id']!;
                   final product = Product.all.firstWhere((p) => p.id == id);
