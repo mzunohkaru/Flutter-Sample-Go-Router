@@ -10,30 +10,30 @@ class AboutScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('About'),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                context.go('/about/test');
-              },
-              child: const Text(
-                'Go To Test Screen',
-              ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              context.go('/about/test');
+            },
+            child: const Text(
+              'Go To Test Screen',
             ),
-            const SizedBox(
-              height: 20,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/setting');
+            },
+            child: const Text(
+              'Go To Setting Screen',
             ),
-            ElevatedButton(
-              onPressed: () {
-                context.go('/setting');
-              },
-              child: const Text(
-                'Go To Setting Screen',
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

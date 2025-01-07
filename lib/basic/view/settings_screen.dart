@@ -7,6 +7,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // 解説: setting画面はabout画面の子画面ではないので、backボタンでabout画面に戻ることはできない
       appBar: AppBar(title: const Text('Setting')),
       body: Center(
         child: ElevatedButton(

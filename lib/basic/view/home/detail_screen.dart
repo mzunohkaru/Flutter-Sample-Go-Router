@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key, required this.userName, required this.userId});
@@ -12,10 +13,32 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Detail"),
       ),
-      body: Center(
-        child: Text(
-          "Hello $userName ! \n Your ID is $userId.",
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            "Hello $userName ! \n Your ID is $userId.",
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/detail/$userName/$userId/debug_a');
+            },
+            child: const Text("Go To Debug A"),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              context.go('/detail/$userName/$userId/debug_b', extra: {
+                'name': userName,
+                'id': userId,
+              });
+            },
+            child: const Text("Go To Debug B"),
+          ),
+        ],
       ),
     );
   }

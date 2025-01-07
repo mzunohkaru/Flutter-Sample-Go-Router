@@ -1,5 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:go_router_sample/basic/view/home/about_screen.dart';
+import 'package:go_router_sample/basic/view/home/debug/debug_a.dart';
+import 'package:go_router_sample/basic/view/home/debug/debug_b.dart';
 import 'package:go_router_sample/basic/view/home/detail_screen.dart';
 import 'package:go_router_sample/basic/view/home/home_screen.dart';
 import 'package:go_router_sample/basic/view/home/test_screen.dart';
@@ -14,7 +16,7 @@ final router = GoRouter(
       routes: [
         GoRoute(
           name: 'detail',
-          path: 'detail/:user_name/:user_id',
+          path: '/detail/:user_name/:user_id',
           builder: (context, state) {
             final userName = state.pathParameters['user_name'];
             final userId = state.pathParameters['user_id'];
@@ -23,6 +25,31 @@ final router = GoRouter(
               userId: int.parse(userId!),
             );
           },
+          routes: [
+            GoRoute(
+              name: 'debug_a',
+              path: 'debug_a',
+              builder: (context, state) {
+                final parentUserId = state.pathParameters['user_id'];
+                return DebugA(
+                  id: int.parse(parentUserId!),
+                );
+              },
+            ),
+            GoRoute(
+              name: 'debug_b',
+              path: 'debug_b',
+              builder: (context, state) {
+                return DebugB(
+                  user: state.extra as Map<String, dynamic>? ??
+                      {
+                        'name': null,
+                        'id': null,
+                      },
+                );
+              },
+            ),
+          ],
         ),
         GoRoute(
           name: 'about',

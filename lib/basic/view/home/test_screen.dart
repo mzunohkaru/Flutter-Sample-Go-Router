@@ -7,6 +7,7 @@ class TestScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // 解説: test画面はabout画面の子画面なので、backボタンでabout画面に戻る
       appBar: AppBar(title: const Text('TEST')),
       body: Center(
         child: ElevatedButton(
