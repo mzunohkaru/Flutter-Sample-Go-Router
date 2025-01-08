@@ -1,49 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../models/product.dart';
+import '../../utils/router/app_router.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends ConsumerWidget {
   const ProductDetailScreen({super.key, required this.product});
 
   final Product product;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Detail'),
+        leading: BackButton(
+          onPressed: () => ref.read(routerProvider).pop(),
+        ),
+      ),
       body: SafeArea(
-        child: Stack(
-          fit: StackFit.expand,
+        child: Column(
           children: [
-            Column(
-              children: [
-                const SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  child: Hero(
-                    tag: product.tag,
-                    child: Image.asset(
-                      product.imagePath,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                Text(product.name),
-                Text(product.description),
-                Text('${product.price}'),
-              ],
+            const SizedBox(
+              height: 40,
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                onPressed: () {
-                  context.pop();
-                },
-                icon: const Icon(Icons.close),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: Hero(
+                tag: product.tag,
+                child: Image.asset(
+                  product.imagePath,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
+            Text(product.name),
+            Text(product.description),
+            Text('${product.price}'),
           ],
         ),
       ),
