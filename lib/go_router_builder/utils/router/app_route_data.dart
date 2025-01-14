@@ -8,6 +8,7 @@ import '../../ui/components/app_navigation_bar.dart';
 import '../../ui/home/detail_screen.dart';
 import '../../ui/home/home_screen.dart';
 import '../../ui/profile/profile_screen.dart';
+import '../../ui/profile/setting_dialog_screen.dart';
 import '../../ui/splash/top_screen.dart';
 import 'app_router.dart';
 import 'routes.dart';
@@ -28,7 +29,9 @@ part 'app_route_data.g.dart';
     ),
     TypedStatefulShellBranch<ProfileBranch>(
       routes: [
-        TypedGoRoute<ProfileRouteData>(path: Routes.profile),
+        TypedGoRoute<ProfileRouteData>(
+          path: Routes.profile,
+        ),
       ],
     ),
   ],
@@ -80,8 +83,6 @@ class DetailRouteData extends GoRouteData {
   final String id;
   final Product? $extra;
 
-  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
-
   @override
   Widget build(BuildContext context, GoRouterState state) {
     final product = Product.all.firstWhere((p) => p.id == id);
@@ -96,6 +97,22 @@ class ProfileRouteData extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ProfileScreen();
+  }
+}
+
+@TypedGoRoute<SettingDialogRouteData>(
+  path: Routes.setting,
+)
+class SettingDialogRouteData extends GoRouteData {
+  const SettingDialogRouteData();
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return const MaterialPage(
+      fullscreenDialog: true,
+      key: ValueKey('Setting'),
+      child: SettingDialogScreen(),
+    );
   }
 }
 
