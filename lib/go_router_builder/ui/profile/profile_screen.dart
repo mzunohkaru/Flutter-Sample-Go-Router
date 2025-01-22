@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import '../../utils/router/app_route_data.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen>
             ElevatedButton(
               onPressed: () {
                 if (context.mounted) {
-                  AScreenRouteData().go(context);
+                  AScreenRouteData(id: globalID).go(context);
                 }
               },
               child: const Text('go to A screen'),

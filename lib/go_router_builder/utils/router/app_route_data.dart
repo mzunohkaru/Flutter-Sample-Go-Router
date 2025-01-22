@@ -35,9 +35,9 @@ part 'app_route_data.g.dart';
           path: Routes.profile,
           routes: [
             TypedGoRoute<AScreenRouteData>(
-              path: Routes.a,
+              path: '${Routes.a}/:id',
               routes: [
-                TypedGoRoute<BScreenRouteData>(path: Routes.b),
+                TypedGoRoute<BScreenRouteData>(path: '${Routes.b}/:id'),
               ],
             ),
             TypedGoRoute<CScreenRouteData>(path: Routes.c),
@@ -112,24 +112,32 @@ class ProfileRouteData extends GoRouteData {
 }
 
 class AScreenRouteData extends GoRouteData {
-  const AScreenRouteData();
+  const AScreenRouteData({
+    required this.id,
+  });
+
+  final String id;
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const AScreen();
+    return AScreen(id: id);
   }
 }
 
 class BScreenRouteData extends GoRouteData {
-  const BScreenRouteData();
+  const BScreenRouteData({
+    required this.id,
+  });
+
+  final String id;
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return const BScreen();
+    return BScreen(id: id);
   }
 }
 

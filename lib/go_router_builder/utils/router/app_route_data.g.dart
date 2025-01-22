@@ -37,12 +37,12 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               factory: $ProfileRouteDataExtension._fromState,
               routes: [
                 GoRouteData.$route(
-                  path: 'a',
+                  path: 'a/:id',
                   parentNavigatorKey: AScreenRouteData.$parentNavigatorKey,
                   factory: $AScreenRouteDataExtension._fromState,
                   routes: [
                     GoRouteData.$route(
-                      path: 'b',
+                      path: 'b/:id',
                       parentNavigatorKey: BScreenRouteData.$parentNavigatorKey,
                       factory: $BScreenRouteDataExtension._fromState,
                     ),
@@ -122,11 +122,12 @@ extension $ProfileRouteDataExtension on ProfileRouteData {
 }
 
 extension $AScreenRouteDataExtension on AScreenRouteData {
-  static AScreenRouteData _fromState(GoRouterState state) =>
-      const AScreenRouteData();
+  static AScreenRouteData _fromState(GoRouterState state) => AScreenRouteData(
+        id: state.pathParameters['id']!,
+      );
 
   String get location => GoRouteData.$location(
-        '/profile/a',
+        '/profile/a/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -140,11 +141,12 @@ extension $AScreenRouteDataExtension on AScreenRouteData {
 }
 
 extension $BScreenRouteDataExtension on BScreenRouteData {
-  static BScreenRouteData _fromState(GoRouterState state) =>
-      const BScreenRouteData();
+  static BScreenRouteData _fromState(GoRouterState state) => BScreenRouteData(
+        id: state.pathParameters['id']!,
+      );
 
   String get location => GoRouteData.$location(
-        '/profile/a/b',
+        '/profile/a/${Uri.encodeComponent(id)}/b/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);

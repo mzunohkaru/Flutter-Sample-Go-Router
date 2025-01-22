@@ -18,6 +18,7 @@ final routerProvider = Provider(
     routes: $appRoutes,
     // リダイレクトロジックを追加
     redirect: (context, state) {
+      print('DEBUG: path params: ${state.pathParameters}');
       final isLoggedIn = logIn;
       final isTopPage = state.matchedLocation == Routes.top;
 

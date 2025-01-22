@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import '../../utils/router/app_route_data.dart';
 import 'widget/alp_body.dart';
 
@@ -10,7 +11,7 @@ class CScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlpBody(
       title: 'C Screen',
-      onTap: () => AScreenRouteData().push(context),
+      onTap: () => AScreenRouteData(id: globalID).push(context),
     );
   }
 }
