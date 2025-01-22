@@ -8,7 +8,6 @@ part of 'app_route_data.dart';
 
 List<RouteBase> get $appRoutes => [
       $appShellRouteData,
-      $settingDialogRouteData,
       $topRouteData,
     ];
 
@@ -36,6 +35,24 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: '/profile',
               factory: $ProfileRouteDataExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'a',
+                  parentNavigatorKey: AScreenRouteData.$parentNavigatorKey,
+                  factory: $AScreenRouteDataExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: 'b',
+                      parentNavigatorKey: BScreenRouteData.$parentNavigatorKey,
+                      factory: $BScreenRouteDataExtension._fromState,
+                    ),
+                  ],
+                ),
+                GoRouteData.$route(
+                  path: 'c',
+                  factory: $CScreenRouteDataExtension._fromState,
+                ),
+              ],
             ),
           ],
         ),
@@ -104,17 +121,48 @@ extension $ProfileRouteDataExtension on ProfileRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $settingDialogRouteData => GoRouteData.$route(
-      path: '/setting',
-      factory: $SettingDialogRouteDataExtension._fromState,
-    );
-
-extension $SettingDialogRouteDataExtension on SettingDialogRouteData {
-  static SettingDialogRouteData _fromState(GoRouterState state) =>
-      const SettingDialogRouteData();
+extension $AScreenRouteDataExtension on AScreenRouteData {
+  static AScreenRouteData _fromState(GoRouterState state) =>
+      const AScreenRouteData();
 
   String get location => GoRouteData.$location(
-        '/setting',
+        '/profile/a',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $BScreenRouteDataExtension on BScreenRouteData {
+  static BScreenRouteData _fromState(GoRouterState state) =>
+      const BScreenRouteData();
+
+  String get location => GoRouteData.$location(
+        '/profile/a/b',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $CScreenRouteDataExtension on CScreenRouteData {
+  static CScreenRouteData _fromState(GoRouterState state) =>
+      const CScreenRouteData();
+
+  String get location => GoRouteData.$location(
+        '/profile/c',
       );
 
   void go(BuildContext context) => context.go(location);

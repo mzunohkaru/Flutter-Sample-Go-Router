@@ -15,15 +15,28 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: TextButton(
-            onPressed: () {
-              if (context.mounted) {
-                SettingDialogRouteData().go(context);
-              }
-            },
-            child: const Text('Setting'),
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          spacing: 60,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                if (context.mounted) {
+                  AScreenRouteData().go(context);
+                }
+              },
+              child: const Text('go to A screen'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                if (context.mounted) {
+                  CScreenRouteData().go(context);
+                }
+              },
+              child: const Text('go to C screen'),
+            ),
+          ],
         ),
       ),
     );

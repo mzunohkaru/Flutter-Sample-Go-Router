@@ -7,8 +7,10 @@ import '../../ui/auth/sign_up_screen.dart';
 import '../../ui/components/app_navigation_bar.dart';
 import '../../ui/home/detail_screen.dart';
 import '../../ui/home/home_screen.dart';
+import '../../ui/profile/b_screen.dart';
+import '../../ui/profile/c_screen.dart';
 import '../../ui/profile/profile_screen.dart';
-import '../../ui/profile/setting_dialog_screen.dart';
+import '../../ui/profile/a_screen.dart';
 import '../../ui/splash/top_screen.dart';
 import 'app_router.dart';
 import 'routes.dart';
@@ -31,6 +33,15 @@ part 'app_route_data.g.dart';
       routes: [
         TypedGoRoute<ProfileRouteData>(
           path: Routes.profile,
+          routes: [
+            TypedGoRoute<AScreenRouteData>(
+              path: Routes.a,
+              routes: [
+                TypedGoRoute<BScreenRouteData>(path: Routes.b),
+              ],
+            ),
+            TypedGoRoute<CScreenRouteData>(path: Routes.c),
+          ],
         ),
       ],
     ),
@@ -100,19 +111,34 @@ class ProfileRouteData extends GoRouteData {
   }
 }
 
-@TypedGoRoute<SettingDialogRouteData>(
-  path: Routes.setting,
-)
-class SettingDialogRouteData extends GoRouteData {
-  const SettingDialogRouteData();
+class AScreenRouteData extends GoRouteData {
+  const AScreenRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return const MaterialPage(
-      fullscreenDialog: true,
-      key: ValueKey('Setting'),
-      child: SettingDialogScreen(),
-    );
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AScreen();
+  }
+}
+
+class BScreenRouteData extends GoRouteData {
+  const BScreenRouteData();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const BScreen();
+  }
+}
+
+class CScreenRouteData extends GoRouteData {
+  const CScreenRouteData();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CScreen();
   }
 }
 
