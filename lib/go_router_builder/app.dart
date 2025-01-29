@@ -3,7 +3,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'utils/router/app_router.dart';
+import 'service/router/router_provider/router_provider.dart';
 
 const _defaultPageTransition = SharedAxisPageTransitionsBuilder(
   transitionType: SharedAxisTransitionType.horizontal,
@@ -22,7 +22,7 @@ class MainApp extends ConsumerWidget {
       theme: FlexThemeData.light(
         scheme: FlexScheme.blueM3,
         useMaterial3: true,
-        primary: Colors.green,
+        primary: Colors.lightBlueAccent,
         pageTransitionsTheme: const PageTransitionsTheme(
           builders: {
             TargetPlatform.android: _defaultPageTransition,

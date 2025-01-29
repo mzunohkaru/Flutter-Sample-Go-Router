@@ -1,41 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/GO_ROUTER_BUILDER/service/auth/auth_provider.dart';
 
-import '../../constants.dart';
-import '../../utils/router/app_route_data.dart';
+import '../../../go_router_builder/service/router/routes.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen>
-    with SingleTickerProviderStateMixin {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      body: SafeArea(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 60,
           children: [
             ElevatedButton(
               onPressed: () {
-                if (context.mounted) {
-                  AScreenRouteData(id: globalID).go(context);
-                }
+                if (!context.mounted) return;
+                context.go(Routes.top);
               },
-              child: const Text('go to A screen'),
+              child: const Text('トップ画面へ'),
             ),
             ElevatedButton(
               onPressed: () {
-                if (context.mounted) {
-                  CScreenRouteData().go(context);
-                }
+                if (!context.mounted) return;
+                ref.read(authNotifierProvider.notifier).logout();
+                context.go(Routes.top);
               },
-              child: const Text('go to C screen'),
+              child: const Text('ログアウト'),
             ),
           ],
         ),

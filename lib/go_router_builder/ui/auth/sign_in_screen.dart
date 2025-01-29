@@ -1,43 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../utils/router/app_route_data.dart';
-import '../components/app_button.dart';
+import '../../service/auth/auth_provider.dart';
+import '../../service/router/routing/routing.dart';
 
-class SigninScreen extends HookWidget {
+class SigninScreen extends ConsumerWidget {
   const SigninScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final isLoading = useState(false);
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            spacing: 24,
             children: [
-              const SizedBox(height: 24),
-              AppButton(
-                height: 48,
-                isLoading: isLoading.value,
+              ElevatedButton(
                 onPressed: () async {
+                  ref.read(authNotifierProvider.notifier).login();
                   const HomeRouteData().go(context);
                 },
-                text: 'Log In',
+                child: Text('ホーム画面へ'),
               ),
-              const SizedBox(height: 24),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text("Don't have an account?"),
+                  const Text("アカウントをお持ちでない方"),
                   const SizedBox(width: 8),
                   TextButton(
                     onPressed: () {
                       const SignupRouteData().go(context);
                     },
-                    child: const Text('Sign up'),
+                    child: const Text('新規登録画面へ'),
                   ),
                 ],
               ),

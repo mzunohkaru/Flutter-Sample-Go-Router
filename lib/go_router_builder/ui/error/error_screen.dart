@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/router/app_route_data.dart';
+import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/GO_ROUTER_BUILDER/service/router/routes.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key, this.message = ''});
@@ -13,7 +13,7 @@ class ErrorScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Error'),
         leading: BackButton(
-          onPressed: () => const HomeRouteData().go(context),
+          onPressed: () => context.go(Routes.home),
         ),
       ),
       body: Center(

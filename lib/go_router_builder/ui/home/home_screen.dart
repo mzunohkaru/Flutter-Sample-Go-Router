@@ -1,31 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
-import '../../models/product.dart';
-import '../../utils/router/app_route_data.dart';
-import 'home_alp/home_alp.dart';
+import '../../models/person/person.dart';
+import '../../service/router/routing/routing.dart';
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final dashes = Product.all;
-    const categories = ProductCategory.values;
+    final dashes = Person.all;
+    const categories = PersonCategory.values;
 
     final tabController = useTabController(
-      initialLength: ProductCategory.values.length,
+      initialLength: PersonCategory.values.length,
       vsync: useSingleTickerProvider(),
     );
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          HomeARouteData(
-            $extra: HomeAlp(id: '987654321', name: 'Home A'),
-          ).go(context);
-        },
-        child: Text('Home A'),
-      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -48,7 +38,7 @@ class HomeScreen extends HookWidget {
                       children: [
                         for (final dash in dashes)
                           if (dash.category == category)
-                            ProductCard(product: dash),
+                            _PersonCard(person: dash),
                       ],
                     ),
                 ],
@@ -61,10 +51,10 @@ class HomeScreen extends HookWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product});
+class _PersonCard extends StatelessWidget {
+  const _PersonCard({required this.person});
 
-  final Product product;
+  final Person person;
 
   @override
   Widget build(BuildContext context) {
@@ -81,31 +71,28 @@ class ProductCard extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (!context.mounted) return;
-              // context.go('/home/detail/${product.id}', extra: product);
-
-              // TODO: ここでエラーが出る
-              DetailRouteData(id: product.id, $extra: product).go(context);
+              DetailRouteData(id: person.id, $extra: person).go(context);
             },
             child: Column(
               children: [
                 Expanded(
                   flex: 6,
                   child: Hero(
-                    tag: product.tag,
+                    tag: person.id,
                     child: CircleAvatar(
                       radius: 50,
-                      backgroundImage: AssetImage(product.imagePath),
+                      backgroundImage: NetworkImage(person.imageUrl),
                     ),
                   ),
                 ),
                 Expanded(
                   child: Text(
-                    product.name,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    '${product.price}',
+                    person.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
