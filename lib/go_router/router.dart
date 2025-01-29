@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
-import 'package:go_router_sample/go_router/view/home/about_screen.dart';
-import 'package:go_router_sample/go_router/view/home/debug/debug_a.dart';
-import 'package:go_router_sample/go_router/view/home/debug/debug_b.dart';
-import 'package:go_router_sample/go_router/view/home/detail_screen.dart';
-import 'package:go_router_sample/go_router/view/home/home_screen.dart';
-import 'package:go_router_sample/go_router/view/home/test_screen.dart';
-import 'package:go_router_sample/go_router/view/settings_screen.dart';
+import 'package:go_router_sample/GO_ROUTER/view/home/about_screen.dart';
+import 'package:go_router_sample/GO_ROUTER/view/home/debug/debug_a.dart';
+import 'package:go_router_sample/GO_ROUTER/view/home/debug/debug_b.dart';
+import 'package:go_router_sample/GO_ROUTER/view/home/detail_screen.dart';
+import 'package:go_router_sample/GO_ROUTER/view/home/home_screen.dart';
+import 'package:go_router_sample/GO_ROUTER/view/home/test_screen.dart';
+import 'package:go_router_sample/GO_ROUTER/view/settings_screen.dart';
 
 final router = GoRouter(
   initialLocation: '/',
