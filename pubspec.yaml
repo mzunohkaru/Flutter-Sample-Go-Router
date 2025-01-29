@@ -17,10 +17,12 @@ dependencies:
 
   flutter_riverpod: ^2.6.1
   flutter_hooks: ^0.20.5
+  hooks_riverpod: ^2.6.1
+  riverpod_annotation: ^2.3.4
 
   go_router: ^14.6.2
-  animations: ^2.0.11
 
+  animations: ^2.0.11
   flex_color_scheme: ^8.1.0
 
 
@@ -35,10 +37,11 @@ dev_dependencies:
   go_router_builder: ^2.7.1
   json_serializable: ^6.9.0
   build_runner: ^2.4.14
+  riverpod_generator: ^2.3.10
 
 
 flutter:
   uses-material-design: true
 
   assets:
-    - images/
+    - assets/
