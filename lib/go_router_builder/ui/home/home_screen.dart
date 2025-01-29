@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/product.dart';
+import '../../utils/router/app_route_data.dart';
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
@@ -71,10 +72,10 @@ class ProductCard extends StatelessWidget {
           GestureDetector(
             onTap: () {
               if (!context.mounted) return;
-              context.go('/home/detail${product.id}', extra: product);
+              // context.go('/home/detail/${product.id}', extra: product);
 
               // TODO: ここでエラーが出る
-              // DetailRouteData(id: product.id, $extra: product).go(context);
+              DetailRouteData(id: product.id, $extra: product).go(context);
             },
             child: Column(
               children: [

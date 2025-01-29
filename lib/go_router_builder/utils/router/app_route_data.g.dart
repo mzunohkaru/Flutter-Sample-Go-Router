@@ -22,8 +22,14 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               factory: $HomeRouteDataExtension._fromState,
               routes: [
                 GoRouteData.$route(
-                  path: '/detail:id',
+                  path: 'detail/:id',
                   factory: $DetailRouteDataExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: 'purchase',
+                      factory: $PurchaseRouteDataExtension._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -84,11 +90,33 @@ extension $HomeRouteDataExtension on HomeRouteData {
 extension $DetailRouteDataExtension on DetailRouteData {
   static DetailRouteData _fromState(GoRouterState state) => DetailRouteData(
         id: state.pathParameters['id']!,
-        $extra: state.extra as Product?,
+        $extra: state.extra as Product,
       );
 
   String get location => GoRouteData.$location(
-        '/detail${Uri.encodeComponent(id)}',
+        '/home/detail/${Uri.encodeComponent(id)}',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
+}
+
+extension $PurchaseRouteDataExtension on PurchaseRouteData {
+  static PurchaseRouteData _fromState(GoRouterState state) => PurchaseRouteData(
+        id: state.pathParameters['id']!,
+        $extra: state.extra as Product,
+      );
+
+  String get location => GoRouteData.$location(
+        '/home/detail/${Uri.encodeComponent(id)}/purchase',
       );
 
   void go(BuildContext context) => context.go(location, extra: $extra);

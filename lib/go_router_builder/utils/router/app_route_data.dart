@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../models/mock_product.dart';
 import '../../models/product.dart';
 import '../../ui/auth/sign_in_screen.dart';
 import '../../ui/auth/sign_up_screen.dart';
 import '../../ui/components/app_navigation_bar.dart';
 import '../../ui/home/detail_screen.dart';
 import '../../ui/home/home_screen.dart';
+import '../../ui/home/purchase_screen.dart';
 import '../../ui/profile/b_screen.dart';
 import '../../ui/profile/c_screen.dart';
 import '../../ui/profile/profile_screen.dart';
@@ -24,7 +26,12 @@ part 'app_route_data.g.dart';
         TypedGoRoute<HomeRouteData>(
           path: Routes.home,
           routes: [
-            TypedGoRoute<DetailRouteData>(path: '${Routes.detail}:id'),
+            TypedGoRoute<DetailRouteData>(
+              path: '${Routes.detail}/:id',
+              routes: [
+                TypedGoRoute<PurchaseRouteData>(path: Routes.purchase),
+              ],
+            ),
           ],
         ),
       ],
@@ -88,17 +95,31 @@ class HomeRouteData extends GoRouteData {
 class DetailRouteData extends GoRouteData {
   const DetailRouteData({
     required this.id,
-    this.$extra,
+    required this.$extra,
   });
 
   final String id;
-  final Product? $extra;
+  final Product $extra;
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    final product = Product.all.firstWhere((p) => p.id == id);
 
-    return ProductDetailScreen(product: product);
+    return ProductDetailScreen(product: $extra);
+  }
+}
+
+class PurchaseRouteData extends GoRouteData {
+  const PurchaseRouteData({
+    required this.id,
+    required this.$extra,
+  });
+
+  final String id;
+  final Product $extra;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return PurchaseScreen(id: id, product: $extra);
   }
 }
 
