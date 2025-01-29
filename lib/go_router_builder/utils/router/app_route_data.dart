@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../models/mock_product.dart';
+import '../../models/day.dart';
 import '../../models/product.dart';
 import '../../ui/auth/sign_in_screen.dart';
 import '../../ui/auth/sign_up_screen.dart';
 import '../../ui/components/app_navigation_bar.dart';
 import '../../ui/home/detail_screen.dart';
+import '../../ui/home/home_alp/home_a_screen.dart';
+import '../../ui/home/home_alp/home_alp.dart';
+import '../../ui/home/home_alp/home_b_screen.dart';
 import '../../ui/home/home_screen.dart';
 import '../../ui/home/purchase_screen.dart';
 import '../../ui/profile/b_screen.dart';
@@ -26,6 +29,12 @@ part 'app_route_data.g.dart';
         TypedGoRoute<HomeRouteData>(
           path: Routes.home,
           routes: [
+            TypedGoRoute<HomeARouteData>(
+              path: Routes.homeA,
+              routes: [
+                TypedGoRoute<HomeBRouteData>(path: Routes.homeB),
+              ],
+            ),
             TypedGoRoute<DetailRouteData>(
               path: '${Routes.detail}/:id',
               routes: [
@@ -92,6 +101,34 @@ class HomeRouteData extends GoRouteData {
   }
 }
 
+class HomeARouteData extends GoRouteData {
+  const HomeARouteData({
+    required this.$extra,
+  });
+
+  final HomeAlp $extra;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return HomeAScreen(homeAlp: $extra);
+  }
+}
+
+class HomeBRouteData extends GoRouteData {
+  const HomeBRouteData({
+    // required this.homeAlpPlus,
+    required this.$extra,
+  });
+
+  final HomeAlpPlus $extra;
+  // final HomeAlp $extra;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return HomeBScreen(homeAlp: $extra);
+  }
+}
+
 class DetailRouteData extends GoRouteData {
   const DetailRouteData({
     required this.id,
@@ -103,7 +140,6 @@ class DetailRouteData extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-
     return ProductDetailScreen(product: $extra);
   }
 }
@@ -119,7 +155,7 @@ class PurchaseRouteData extends GoRouteData {
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return PurchaseScreen(id: id, product: $extra);
+    return PurchaseScreen(id: id, product: $extra, day: Day.monday);
   }
 }
 

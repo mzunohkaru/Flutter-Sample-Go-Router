@@ -22,6 +22,16 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
               factory: $HomeRouteDataExtension._fromState,
               routes: [
                 GoRouteData.$route(
+                  path: 'homeA',
+                  factory: $HomeARouteDataExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: 'homeB',
+                      factory: $HomeBRouteDataExtension._fromState,
+                    ),
+                  ],
+                ),
+                GoRouteData.$route(
                   path: 'detail/:id',
                   factory: $DetailRouteDataExtension._fromState,
                   routes: [
@@ -85,6 +95,48 @@ extension $HomeRouteDataExtension on HomeRouteData {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+extension $HomeARouteDataExtension on HomeARouteData {
+  static HomeARouteData _fromState(GoRouterState state) => HomeARouteData(
+        $extra: state.extra as HomeAlp,
+      );
+
+  String get location => GoRouteData.$location(
+        '/home/homeA',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
+}
+
+extension $HomeBRouteDataExtension on HomeBRouteData {
+  static HomeBRouteData _fromState(GoRouterState state) => HomeBRouteData(
+        $extra: state.extra as HomeAlpPlus,
+      );
+
+  String get location => GoRouteData.$location(
+        '/home/homeA/homeB',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 extension $DetailRouteDataExtension on DetailRouteData {

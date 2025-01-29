@@ -4,6 +4,8 @@ mixin Routes {
   static const String home = '/home';
   static const String detail = 'detail';
   static const String purchase = 'purchase';
+  static const String homeA = 'homeA';
+  static const String homeB = 'homeB';
 
   static const String profile = '/profile';
   static const String a = 'a';

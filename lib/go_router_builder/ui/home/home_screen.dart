@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/product.dart';
 import '../../utils/router/app_route_data.dart';
+import 'home_alp/home_alp.dart';
 
 class HomeScreen extends HookWidget {
   const HomeScreen({super.key});
@@ -17,6 +18,14 @@ class HomeScreen extends HookWidget {
     );
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          HomeARouteData(
+            $extra: HomeAlp(id: '987654321', name: 'Home A'),
+          ).go(context);
+        },
+        child: Text('Home A'),
+      ),
       body: SafeArea(
         child: Column(
           children: [
