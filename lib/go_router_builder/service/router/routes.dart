@@ -8,5 +8,7 @@ mixin Routes {
   static const String security = 'security';
 
   static const String profile = '/profile';
+  static const String settings = 'settings';
+  static const String userEdit = 'user-edit';
 
 }

@@ -43,6 +43,18 @@ RouteBase get $appShellRouteData => StatefulShellRouteData.$route(
             GoRouteData.$route(
               path: '/profile',
               factory: $ProfileRouteDataExtension._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: 'settings',
+                  factory: $SettingRouteDataExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: 'user-edit',
+                      factory: $UserEditRouteDataExtension._fromState,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
@@ -121,6 +133,42 @@ extension $ProfileRouteDataExtension on ProfileRouteData {
 
   String get location => GoRouteData.$location(
         '/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SettingRouteDataExtension on SettingRouteData {
+  static SettingRouteData _fromState(GoRouterState state) =>
+      const SettingRouteData();
+
+  String get location => GoRouteData.$location(
+        '/profile/settings',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $UserEditRouteDataExtension on UserEditRouteData {
+  static UserEditRouteData _fromState(GoRouterState state) =>
+      const UserEditRouteData();
+
+  String get location => GoRouteData.$location(
+        '/profile/settings/user-edit',
       );
 
   void go(BuildContext context) => context.go(location);

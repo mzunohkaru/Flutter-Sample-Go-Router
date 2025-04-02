@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:go_router_sample/GO_ROUTER_BUILDER/ui/profile/setting_screen.dart';
+import 'package:go_router_sample/GO_ROUTER_BUILDER/ui/profile/user_edit_screen.dart';
 
 import '../../../models/person/person.dart';
 import '../../../models/secret/secret.dart';
@@ -39,6 +41,16 @@ part 'routing.g.dart';
       routes: [
         TypedGoRoute<ProfileRouteData>(
           path: Routes.profile,
+          routes: [
+            TypedGoRoute<SettingRouteData>(
+              path: Routes.settings,
+              routes: [
+                TypedGoRoute<UserEditRouteData>(
+                  path: Routes.userEdit,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),
@@ -116,6 +128,24 @@ class ProfileRouteData extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ProfileScreen();
+  }
+}
+
+class SettingRouteData extends GoRouteData {
+  const SettingRouteData();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const SettingScreen();
+  }
+}
+
+class UserEditRouteData extends GoRouteData {
+  const UserEditRouteData();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const UserEditScreen();
   }
 }
 
